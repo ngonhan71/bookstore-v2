@@ -34,12 +34,13 @@ export default function Discount() {
           <Breadcrumb.Item linkAs={NavLink} linkProps={{ to: "/" }}>Trang chủ</Breadcrumb.Item>
           <Breadcrumb.Item active linkAs={NavLink} linkProps={{ to: "/khuyen-mai" }}>Khuyến mãi</Breadcrumb.Item>
         </Breadcrumb>
-        {loading && <Loading />}
-        {voucherData &&
+        {loading ? <Loading /> : (
+          voucherData &&
           voucherData.length > 0 ?
           voucherData.map((item) => (
             <DiscountItem key={item._id} item={item} />
-          )) : <p>Hiện tại không có mã giảm giá nào!</p>}
+          )) : <p>Hiện tại không có mã giảm giá nào!</p>
+        )}
       </Container>
     </div>
   );

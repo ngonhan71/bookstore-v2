@@ -41,12 +41,12 @@ export default function Register() {
     );
     const data = await result.json();
     const { email, id, name } = data;
-    const avatar = data?.picture?.data.url;
+    const avatarFB = data?.picture?.data.url;
 
-    const { token, user } = await authApi.loginWithFacebook({ email, id, name, avatar });
+    const { token, user } = await authApi.loginWithFacebook({ email, id, name, avatar: avatarFB });
 
     localStorage.setItem("accessToken", token);
-    const { userId, role, phoneNumber } = user;
+    const { userId, role, phoneNumber, avatar } = user;
     dispatch(login({ email, fullName: name, phoneNumber, avatar, userId, role }));
     navigate({ pathname: "/" });
   };
