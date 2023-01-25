@@ -1,6 +1,11 @@
 
 # BookStore: Website quản lý cửa hàng bán sách
 
+## [Deploy: https://bookstore-v2.vercel.app/](https://bookstore-v2.vercel.app/) 
+
+![](https://res.cloudinary.com/dbynglvwk/image/upload/v1674651494/ie213/Capture_qrtibt.png)
+
+
 ## CÔNG NGHỆ SỬ DỤNG
 
 - **Front-End:** ReactJS
@@ -33,7 +38,8 @@
 
 1. Git clone
 ```
-    
+    https://github.com/ngonhan71/bookstore-v2
+    cd bookstore-v2
 ```
 
 2. cd server, tạo file .env
@@ -83,3 +89,7 @@
 ```
     Run: npm start
 ```
+
+## Liên hệ
+ - Email: ngohuunhan10@gmail.com / 19520800@gm.uit.edu.vn
+ - FB: https://www.facebook.com/profile.php?id=100023638717042
