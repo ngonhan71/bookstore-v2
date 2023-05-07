@@ -13,8 +13,8 @@ const analyticApi = {
         const url = `analytics/revenue/lifetime`
         return axiosClient.get(url)
     },
-    getCountOrderLifeTime: () => {
-        const url = `analytics/countorder/lifetime`
+    getOrderCountLifeTime: () => {
+        const url = `analytics/ordercount/lifetime`
         return axiosClient.get(url)
     },
     getBestSeller: () => {

@@ -113,12 +113,12 @@ export default function Register() {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
-              </div>
-              {formik.errors.email && (
+                {formik.errors.email && (
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.email}
                   </Form.Control.Feedback>
                 )}
+              </div>
               <div className={`form-group ${styles.formGroup}`}>
                 <input
                   type="text"

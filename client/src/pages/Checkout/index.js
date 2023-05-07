@@ -438,7 +438,7 @@ export default function Checkout() {
                 </div>
                 {formik.values?.address?._id === "-1" && <AddressSelect onChange={handleChangeAddress} />}
                 <Button style={{width: 250, marginTop: 15}} disabled={loading} variant="danger" type="button" onClick={() =>  {
-                  if (formik.values?.address?._id === "-1" && newAddress?.address === "") {
+                  if ((formik.values?.address?._id === "-1" || addressList?.length <= 1) && newAddress?.address === "") {
                     return alert("Vui lòng điền đầy đủ thông tin!")
                   }
                   if (newAddress?.loading && newAddress?.loading === true) return

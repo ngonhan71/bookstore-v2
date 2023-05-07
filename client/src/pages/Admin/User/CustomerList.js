@@ -34,9 +34,9 @@ export default function CustomerList() {
         setLoading(true);
         const query = {
           "$or": [
-            { fullName: { "$regex": searchString, "$options": "$i" } },
-            { email: { "$regex": searchString, "$options": "$i" } },
-            { phoneNumber: { "$regex": searchString, "$options": "$i" } },
+            { fullName: { "$regex": searchString, "$options": "i" } },
+            { email: { "$regex": searchString, "$options": "i" } },
+            { phoneNumber: { "$regex": searchString, "$options": "i" } },
           ],
           role: 0
         }

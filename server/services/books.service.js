@@ -45,8 +45,8 @@ const bookService = {
             { 
                 $match: {
                     $or: [
-                        { name: { $regex: key, $options:"$i" } }, 
-                        { "author.name": { $regex: key, $options:"$i" } } 
+                        { name: { $regex: key, $options:"i" } }, 
+                        { "author.name": { $regex: key, $options:"i" } } 
                     ]
                 }
             },

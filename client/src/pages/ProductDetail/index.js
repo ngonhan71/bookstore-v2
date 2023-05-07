@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import { AiOutlineMinus, AiOutlinePlus, AiOutlineShoppingCart, AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { AiOutlineMinus, AiOutlinePlus, AiOutlineShoppingCart } from 'react-icons/ai'
 import { toast } from 'react-toastify';
 
 import DetailedBookInfo from '../../components/Shop/DetailedBookInfo'
@@ -26,6 +26,8 @@ export default function ProductDetail() {
 
   const [bookData, setBookData] = useState({})
   const [loading, setLoading] = useState(false)
+
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const addToCart = async() => {
@@ -59,8 +61,6 @@ export default function ProductDetail() {
     fetchBook();
   }, [slug]);
 
-  const [quantity, setQuantity] = useState(1);
-  const [fav, setFav]= useState(false);
 
   const decQuantity = () => {
     if(quantity > 1) {
@@ -83,10 +83,6 @@ export default function ProductDetail() {
     else {
       setQuantity('')
     }
-  }
-
-  const handleFav = () => {
-    setFav(!fav)
   }
 
   const handleAddToCart = () => {
@@ -176,11 +172,6 @@ export default function ProductDetail() {
                   </div>
 
                   <div className={styles.actions}>
-                    <button className={styles.fav_btn} onClick={handleFav}>
-                      {fav ? <AiFillHeart className={styles.fav_icon} /> : <AiOutlineHeart className={styles.fav_icon}/> }
-                      Yêu thích
-                    </button>
-
                     <div className={styles.actions_bottom}>
                       <button className={styles.addToCartBtn} onClick={handleAddToCart}>
                         <AiOutlineShoppingCart className={styles.addToCartIcon} />

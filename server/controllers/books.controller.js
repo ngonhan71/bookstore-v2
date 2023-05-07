@@ -1,4 +1,5 @@
 const bookService = require('../services/books.service')
+const redis = require('../config/redis')
 const { cloudinary } = require('../config/cloudinary')
 
 const bookController = {
@@ -10,9 +11,33 @@ const bookController = {
             const { query } = req.query
 
             const queryObj = !!query ? query : {}
-            
-            const [count, data] = await bookService.getAll({query: queryObj, page, limit, sort})
-            const totalPage = Math.ceil(count / limit)
+
+            const key = `Book::${JSON.stringify({queryObj, page, limit, sort})}`
+
+            let count, data, totalPage
+
+            try {
+                const cache = await redis.get(key)
+
+                if (cache) {
+                    const json = JSON.parse(cache)
+                    count = json.count
+                    data = json.data
+                } else {
+                    const [countNum, bookList] = await bookService.getAll({query: queryObj, page, limit, sort})
+                    count = countNum
+                    data = bookList
+                    redis.setex(key, 600, JSON.stringify({count, data}))
+                }
+
+            } catch (error) {
+                const [countNum, bookList] = await bookService.getAll({query: queryObj, page, limit, sort})
+                count = countNum
+                data = bookList
+                console.log('Redis error::::' + error.message)
+            }
+
+            totalPage = Math.ceil(count / limit)
             
             res.status(200).json({
                 message: 'success',
@@ -85,19 +110,37 @@ const bookController = {
     getBySlug: async(req, res) => {
         try {
             const { slug } = req.params
-            const data = await bookService.getBySlug(slug)
 
-            if (data) {
+            let response
+
+            const key = `Book::${slug}`
+
+            try {
+                const cache = await redis.get(key)
+
+                if (cache) {
+                    response = JSON.parse(cache).response
+                } else {
+                    response = await bookService.getBySlug(slug)
+                    redis.setex(key, 600, JSON.stringify({response}))
+                }
+
+            } catch (error) {
+                response = await bookService.getBySlug(slug)
+                console.log('Redis error::::' + error.message)
+            }
+
+            if (response) {
                 res.status(200).json({
                     message: 'success',
                     error: 0,
-                    data
+                    data: response
                 })
             } else {
                 res.status(404).json({
                     message: 'Không tìm thấy sách!',
                     error: 1,
-                    data
+                    data: response
                 })
             }
         } catch (error) {
@@ -187,6 +230,11 @@ const bookController = {
             }
          
             if (data) {
+                
+                const keys = await redis.keys('Book::*')
+                if (keys.length > 0)
+                    redis.del(keys)
+                
                 return res.status(200).json({
                     message: 'success',
                     error: 0,

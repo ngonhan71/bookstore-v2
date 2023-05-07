@@ -105,7 +105,7 @@ const orderService = {
             { $sort: { _id: 1 } },
         ])
     },
-    getCountOrderLifeTime: async() => {
+    getOrderCountLifeTime: async() => {
         return await Order.aggregate([
             {
                 $group: {

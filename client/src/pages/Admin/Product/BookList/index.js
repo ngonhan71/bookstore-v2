@@ -27,8 +27,9 @@ function BookList() {
       try {
         setLoading(true);
         const query = {
-          name: { "$regex": searchString, "$options": "$i" }
+          name: { "$regex": searchString, "$options": "i" }
         }
+        console.log(query)
         const res = await bookApi.getAll({ query, page: page, limit: 10 });
         setLoading(false);
         setBookData({ books: res.data, totalPage: res.pagination.totalPage });

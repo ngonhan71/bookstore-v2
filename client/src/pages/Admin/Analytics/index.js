@@ -37,9 +37,9 @@ ChartJS.register(
 
 function AnalyticsPage() {
 
-  const [revenueLifeTimeDataChart, setRevenueLifeTimeChartData] = useState({});
-  const [countOrderLifeTimeDataChart, setCountOrderLifeTimeChartData] = useState({});
-  const [bookBestSellerDataChart, setBookBestSellerChartData] = useState({});
+  const [revenueChartData, setRevenueChartData] = useState({});
+  const [orderCountLifeTimeChartData, setOrderCountLifeTimeChartData] = useState({});
+  const [bookBestSellerChartData, setBookBestSellerChartData] = useState({});
 
   const [revenueTime, setRevenueTime] = useState({value: 1, text: "Toàn thời gian"})
 
@@ -107,7 +107,7 @@ function AnalyticsPage() {
             break;
           }
         }
-        setRevenueLifeTimeChartData({
+        setRevenueChartData({
           labels: chartData.map((item) => item._id),
           datasets: [
             {
@@ -130,7 +130,7 @@ function AnalyticsPage() {
     const fetchCountOrderLifeTime = async () => {
       try {
         const { data: chartData } = await analyticApi.getCountOrderLifeTime();
-        setCountOrderLifeTimeChartData({
+        setOrderCountLifeTimeChartData({
           labels: chartData.map((item) => item?._id),
           datasets: [
             {
@@ -215,7 +215,7 @@ function AnalyticsPage() {
               <option value="2">Tuần này</option>
               <option value="3">Tuần trước</option>
             </select>
-          {revenueLifeTimeDataChart && revenueLifeTimeDataChart.datasets && (
+          {revenueChartData && revenueChartData.datasets && (
             <Bar
               options={{
                 responsive: true,
@@ -229,7 +229,7 @@ function AnalyticsPage() {
                   },
                 },
               }}
-              data={revenueLifeTimeDataChart}
+              data={revenueChartData}
             />
           )}
           </div>
@@ -237,7 +237,7 @@ function AnalyticsPage() {
         <Col xl={4}>
           <div className={styles.chart}>
             <h2>SÁCH BÁN CHẠY</h2>
-            {bookBestSellerDataChart && bookBestSellerDataChart.datasets && (
+            {bookBestSellerChartData && bookBestSellerChartData.datasets && (
               <Pie
                 options={{
                   responsive: true,
@@ -252,7 +252,7 @@ function AnalyticsPage() {
                     },
                   },
                 }}
-                data={bookBestSellerDataChart}
+                data={bookBestSellerChartData}
               />
             )}
           </div>
@@ -260,7 +260,7 @@ function AnalyticsPage() {
         <Col xl={8}>
           <div className={styles.chart}>
             <h2>SỐ LƯỢNG ĐƠN HÀNG</h2>
-            {countOrderLifeTimeDataChart && countOrderLifeTimeDataChart.datasets && (
+            {orderCountLifeTimeChartData && orderCountLifeTimeChartData.datasets && (
               <Bar
                 options={{
                   responsive: true,
@@ -274,7 +274,7 @@ function AnalyticsPage() {
                     },
                   },
                 }}
-                data={countOrderLifeTimeDataChart}
+                data={orderCountLifeTimeChartData}
               />
             )}
           </div>

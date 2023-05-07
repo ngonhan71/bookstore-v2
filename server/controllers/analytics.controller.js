@@ -46,9 +46,9 @@ const analyticsController = {
             })
         }
     },
-    getCountOrderLifeTime: async(req, res) => {
+    getOrderCountLifeTime: async(req, res) => {
         try {
-            const data = await orderService.getCountOrderLifeTime()
+            const data = await orderService.getOrderCountLifeTime()
             res.status(200).json({
                 message: 'success',
                 error: 0,
