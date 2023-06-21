@@ -1,6 +1,6 @@
 const orderService = require('../services/orders.service')
 
-const analyticsController = {
+const statisticsController = {
     getTotalRevenue: async(req, res) => {
         try {
             const data = await orderService.getTotalRevenue()
@@ -78,4 +78,4 @@ const analyticsController = {
     },
 }
 
-module.exports = analyticsController
+module.exports = statisticsController

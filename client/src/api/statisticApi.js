@@ -1,26 +1,26 @@
 import axiosClient from "./axiosClient"
 
-const analyticApi = {
+const statisticApi = {
     getTotalRevenue: () => {
-        const url = `analytics/revenue/all`
+        const url = `statistics/revenue/all`
         return axiosClient.get(url)
     },
     getRevenueWeek: ({start, end}) => {
-        const url = `analytics/revenue/week`
+        const url = `statistics/revenue/week`
         return axiosClient.get(url, { params: {start, end}})
     },
     getRevenueLifeTime: () => {
-        const url = `analytics/revenue/lifetime`
+        const url = `statistics/revenue/lifetime`
         return axiosClient.get(url)
     },
     getOrderCountLifeTime: () => {
-        const url = `analytics/ordercount/lifetime`
+        const url = `statistics/ordercount/lifetime`
         return axiosClient.get(url)
     },
     getBestSeller: () => {
-        const url = `analytics/product/bestseller`
+        const url = `statistics/product/bestseller`
         return axiosClient.get(url)
     },
 }
 
-export default analyticApi
+export default statisticApi

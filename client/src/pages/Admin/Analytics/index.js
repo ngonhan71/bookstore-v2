@@ -14,7 +14,7 @@ import { Bar, Pie } from "react-chartjs-2";
 import { Row, Col } from "react-bootstrap";
 import bookApi from "../../../api/bookApi";
 import orderApi from "../../../api/orderApi";
-import analyticApi from "../../../api/analyticApi";
+import statisticApi from "../../../api/statisticApi";
 import date from "../../../helper/date"
 import styles from "./AnalyticsPage.module.css";
 import { useEffect, useState } from "react";
@@ -52,7 +52,7 @@ function AnalyticsPage() {
         const [resBook, resOrder, resRevenue] = await Promise.all([
           bookApi.getAll({}),
           orderApi.getAll({}),
-          analyticApi.getTotalRevenue()
+          statisticApi.getTotalRevenue()
         ])
         setCardData(pre => {
           return {
@@ -75,14 +75,14 @@ function AnalyticsPage() {
         let chartData = []
         switch (revenueTime.value) {
           case 1: {
-            const { data } = await analyticApi.getRevenueLifeTime();
+            const { data } = await statisticApi.getRevenueLifeTime();
             chartData = data;
             break;
           }
 
           case 2: {
             const now = new Date()
-            const { data } = await analyticApi.getRevenueWeek({
+            const { data } = await statisticApi.getRevenueWeek({
               start: date.getMonday(now), 
               end: date.getSunday(now) 
             });
@@ -93,7 +93,7 @@ function AnalyticsPage() {
           case 3: {
             const now = new Date()
             now.setDate(now.getDate() - 7)
-            const { data } = await analyticApi.getRevenueWeek({
+            const { data } = await statisticApi.getRevenueWeek({
               start: date.getMonday(now), 
               end: date.getSunday(now) 
             });
@@ -102,7 +102,7 @@ function AnalyticsPage() {
           }
           
           default: {
-            const { data } = await analyticApi.getRevenueLifeTime();
+            const { data } = await statisticApi.getRevenueLifeTime();
             chartData = data;
             break;
           }
@@ -129,7 +129,7 @@ function AnalyticsPage() {
   useEffect(() => {
     const fetchCountOrderLifeTime = async () => {
       try {
-        const { data: chartData } = await analyticApi.getCountOrderLifeTime();
+        const { data: chartData } = await statisticApi.getOrderCountLifeTime();
         setOrderCountLifeTimeChartData({
           labels: chartData.map((item) => item?._id),
           datasets: [
@@ -148,7 +148,7 @@ function AnalyticsPage() {
 
     const fetchBookBestSeller = async () => {
       try {
-        const { data: chartData } = await analyticApi.getBestSeller();
+        const { data: chartData } = await statisticApi.getBestSeller();
         console.log(chartData);
         setBookBestSellerChartData({
           labels: chartData.map((item) => item.product[0]?.name),
