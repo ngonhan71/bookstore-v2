@@ -201,6 +201,12 @@ const bookController = {
             const isExist = await bookService.getByBookId(bookId)
             if (isExist) return res.status(400).json({message: "bookId đã tồn tại!", error: 1}) 
             const data = await bookService.create(req.body)
+
+            // clean cache
+            const keys = await redis.keys('Book::*')
+            if (keys.length > 0)
+                redis.del(keys)
+
             return res.status(201).json({
                 message: 'success',
                 error: 0,
@@ -263,6 +269,11 @@ const bookController = {
             const data = await bookService.deleteById(id)
             if (data) {
                 await cloudinary.uploader.destroy(data?.publicId)
+
+                   // clean cache
+                const keys = await redis.keys('Book::*')
+                if (keys.length > 0)
+                    redis.del(keys)
 
                 return res.status(200).json({
                     message: 'success',

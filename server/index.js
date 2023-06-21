@@ -1,4 +1,7 @@
 const express = require('express')
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+
 const cors = require('cors')
 require('dotenv').config()
 const cookieParser = require('cookie-parser');
@@ -29,6 +32,8 @@ app.use(express.json())
 
 
 const routes = require('./routes')
+
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 routes(app)
 

@@ -23,12 +23,8 @@ function routes(app) {
     app.use('/api/v1/vouchers', voucherRouter)
     app.use('/api/v1/statistics', statisticRouter)
 
-
     app.use('*', function(req, res) {
-        res.status(404).json({
-            error: 404,
-            message: 'Not Found'
-        })
+        return res.redirect('/doc')
     })
    
 }

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node swagger.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -22,6 +22,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.2",
     "mongoose-slug-generator": "^1.0.4",
-    "nodemailer": "^6.7.5"
+    "nodemailer": "^6.7.5",
+    "swagger-autogen": "^2.23.2",
+    "swagger-ui-express": "^4.6.3"
   }
 }
