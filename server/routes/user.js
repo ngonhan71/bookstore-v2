@@ -15,7 +15,7 @@ router.post('/:userId/address', verifyToken, checkRole([RoleEnum.Customer]), use
 router.post('/staff', verifyToken, checkRole([RoleEnum.Admin]), userController.createStaff)
 
 router.post('/:userId/addtocart', verifyToken, checkRole([RoleEnum.Customer]), userController.addToCart)
-router.put('/:userId/cart', verifyToken, checkRole([RoleEnum.Customer]), userController.updateCart)
+router.put('/:userId/cart', verifyToken, userController.updateCart)
 router.put('/:userId/status', verifyToken, checkRole([RoleEnum.Admin]), userController.updateStatus)
 router.put('/:userId/avatar', verifyToken, userController.updateAvatar)
 
