@@ -102,9 +102,9 @@ function AddBook() {
       try {
         const formData = new FormData();
         formData.append("file", image);
-        formData.append("upload_preset", "fti6du11");
+        formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
         setLoading(true)
-        const resCloudinary = await axios.post("https://api.cloudinary.com/v1_1/dbynglvwk/image/upload", formData)
+        const resCloudinary = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`, formData)
         const { secure_url, public_id } = resCloudinary.data
         if (secure_url && public_id) {
           const res = await bookApi.create({ 

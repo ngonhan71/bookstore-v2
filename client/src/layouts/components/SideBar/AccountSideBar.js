@@ -31,14 +31,11 @@ function AccountSideBar() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "fti6du11");
+      formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
       setLoading(true);
       const {
         data: { secure_url, public_id },
-      } = await axios.post(
-        "https://api.cloudinary.com/v1_1/dbynglvwk/image/upload",
-        formData
-      );
+      } = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`, formData)
       if (secure_url && public_id) {
         const avatar = {
           url: secure_url,
